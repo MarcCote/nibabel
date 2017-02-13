@@ -9,7 +9,7 @@ from nibabel.orientations import aff2axcodes
 def build_argparser():
     DESCRIPTION = "Convert tractograms (TCK -> TRK)."
     p = argparse.ArgumentParser(description=DESCRIPTION)
-    p.add_argument('anatomy', help='reference anatomy (.nii|.nii.gz.')
+    p.add_argument('anatomy', help='reference anatomy (.nii|.nii.gz).')
     p.add_argument('tractograms', metavar='tractogram', nargs="+", help='list of tractograms (.tck).')
     p.add_argument('-f', '--force', action="store_true", help='overwrite existing output files.')
     return p
