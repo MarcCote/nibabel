@@ -15,6 +15,7 @@ import nibabel as nib
 from nibabel.openers import Opener
 from nibabel.volumeutils import (native_code, swapped_code, endian_codes)
 from nibabel.orientations import (aff2axcodes, axcodes2ornt)
+from nibabel.affines import apply_affine
 
 from .array_sequence import create_arraysequences_from_generator
 from .tractogram_file import TractogramFile
@@ -400,7 +401,8 @@ class TrkFile(TractogramFile):
                 tractogram.data_per_streamline[name] = properties[:, slice_]
 
         tractogram.affine_to_rasmm = get_affine_trackvis_to_rasmm(hdr)
-        tractogram = tractogram.to_world()
+        # tractogram = tractogram.to_world()
+        tractogram.streamlines._data = apply_affine(tractogram.affine_to_rasmm, tractogram.streamlines._data)
 
         return cls(tractogram, header=hdr)
 
